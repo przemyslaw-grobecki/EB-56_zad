@@ -9,7 +9,7 @@ import config from "./config.json";
 import Skeleton from '@mui/material/Skeleton';
 import './App.css'
 import {ListItem, List, Stack} from "@mui/material";
-import Basket from './components/Payments';
+import Payments from './components/Payments';
 import BasketType from './types/Basket';
 
 
@@ -133,7 +133,7 @@ function App() {
     return (
         <div className="App">
             <Header openBasket={handleClickOpenBasket}/>
-            <Basket basketItems={basket.Orders.map(order => {
+            <Payments basketItems={basket.Orders.map(order => {
                 return {
                     ...products.find(product => product.ID == order.ProductId),
                     Quantity: order.Quantity

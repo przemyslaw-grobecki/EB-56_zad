@@ -11,7 +11,7 @@ import React, {forwardRef, ReactElement, Ref, useEffect, useRef, useState} from 
 import Order from "../types/Order";
 import config from "../config.json";
 
-type BasketProps = {
+type PaymentsProps = {
     basketItems: Array<undefined>,
     basketOpen: boolean,
     closeBasket: Function
@@ -33,7 +33,7 @@ const Transition = forwardRef(function Transition(
 });
 
 
-const Basket: React.FC<BasketProps> = (props: BasketProps) => {
+const Payments: React.FC<PaymentsProps> = (props: PaymentsProps) => {
     const [isConfirmed, setIsConfirmed] = useState(false);
     const orders = useRef<Array<OrderItem>>([]);
     const onCloseHandler = () => {
@@ -96,4 +96,4 @@ const Basket: React.FC<BasketProps> = (props: BasketProps) => {
     )
 };
 
-export default Basket;
+export default Payments;

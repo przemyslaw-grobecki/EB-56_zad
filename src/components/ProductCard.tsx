@@ -61,7 +61,7 @@ const ProductCard: React.FC<ProductCardProps> = (props : ProductCardProps) => {
                     <Button size="small" color="primary" onClick={addToBasket}>Add to cart</Button>
                 </CardActions>
                 <CardActions>
-                    <Button size="small" color="secondary" onClick={removeFromBasket}>Remove From Cart</Button>
+                    <Button size="small" color="secondary" onClick={removeFromBasket}>Remove from cart</Button>
                 </CardActions>
             </Card>
     )
