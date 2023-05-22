@@ -5,6 +5,7 @@ import config from "../config.json";
 import { useNavigate } from "react-router-dom";
 
 type LoginProps = {
+    setIsAuthenticated: () => void
 };
 
 const Login: React.FC<LoginProps> = (props : LoginProps) => {
@@ -18,9 +19,10 @@ const Login: React.FC<LoginProps> = (props : LoginProps) => {
         if(password.length < 6){
             return;
         }
-        const response = await axios.post(`${config.serverURL}/login`, 
+        const response = await axios.post(`${config.serverURL}/users/login`, 
             {Password: password, Email: email});
         if(response.status == 200){
+            props.setIsAuthenticated()
             navigate("/");
         }
     } 
@@ -32,9 +34,10 @@ const Login: React.FC<LoginProps> = (props : LoginProps) => {
         if(password.length < 6){
             return;
         }
-        const response = await axios.post(`${config.serverURL}/register`, 
+        const response = await axios.post(`${config.serverURL}/users/register`, 
             {Password: password, Email: email});
         if(response.status == 200){
+            props.setIsAuthenticated();
             navigate("/");
         }
     }

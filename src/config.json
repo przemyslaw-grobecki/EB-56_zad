@@ -1,3 +1,4 @@
 {
-    "serverURL": "http://localhost:1323"
+    "serverURL": "http://localhost:1323",
+    "clientURL": "http://localhost:5173"
 }

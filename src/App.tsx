@@ -180,7 +180,7 @@ function App() {
                             <Navigate to="/login" replace/>
                         }>
                     </Route>
-                    <Route path='/login' element={<Login />}/>
+                    <Route path='/login' element={<Login setIsAuthenticated={() => setIsAuthenticated(true)}/>}/>
                 </Routes>
             </BrowserRouter>
         </>
