@@ -11,7 +11,9 @@ import './App.css'
 import {ListItem, List, Stack} from "@mui/material";
 import Payments from './components/Payments';
 import BasketType from './types/Basket';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import Register from './components/Register';
+import Login from './components/Login';
 
   
 function App() {
@@ -178,8 +180,7 @@ function App() {
                             <Navigate to="/login" replace/>
                         }>
                     </Route>
-                    <Route path='/login'/>
-                    <Route path='/register'/>
+                    <Route path='/login' element={<Login />}/>
                 </Routes>
             </BrowserRouter>
         </>
