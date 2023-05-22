@@ -11,9 +11,25 @@ import './App.css'
 import {ListItem, List, Stack} from "@mui/material";
 import Payments from './components/Payments';
 import BasketType from './types/Basket';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
-
+  
 function App() {
+    const [isAuthenticated, setIsAuthenticated] = useState(
+        () => {
+            const authentication = localStorage.getItem('auth');
+            if (authentication) {
+                return JSON.parse(authentication);
+            }
+            return false;
+        }
+    );
+
+    useEffect(()=>{
+        localStorage.setItem("auth", JSON.stringify(isAuthenticated));
+      }, [isAuthenticated]);
+
+
     const basketId = 8; //Should be extracted from the logging session but for purpose of this app It is hardcoded
     const [basketOpen, setBasketOpen] = useState(false);
     const [basket, setBasket] = useState<BasketType>({
@@ -131,29 +147,42 @@ function App() {
 
 
     return (
-        <div className="App">
-            <Header openBasket={handleClickOpenBasket}/>
-            <Payments basketItems={basket.Orders.map(order => {
-                return {
-                    ...products.find(product => product.ID == order.ProductId),
-                    Quantity: order.Quantity
-                }
-            })}
-                basketOpen={basketOpen}
-                closeBasket={handleCloseBasket}/>
-            <List direction="row" component={Stack}>
-                {
-                    products.map((product) =>
-                        <ListItem>
-                            <ProductCard product={product}
-                                addProductToBasket={addProductToBasket}
-                                removeProductFromBasket={removeProductFromBasket}
-                            />
-                        </ListItem>
-                    )
-                }
-            </List>
-        </div>
+        <>
+            <BrowserRouter>
+                <Routes>
+                    <Route path='/'
+                        element= {
+                            isAuthenticated ? <div className="App">
+                            <Header openBasket={handleClickOpenBasket}/>
+                            <Payments basketItems={basket.Orders.map(order => {
+                                return {
+                                    ...products.find(product => product.ID == order.ProductId),
+                                    Quantity: order.Quantity
+                                }
+                            })}
+                                basketOpen={basketOpen}
+                                closeBasket={handleCloseBasket}/>
+                            <List direction="row" component={Stack}>
+                                {
+                                    products.map((product) =>
+                                        <ListItem>
+                                            <ProductCard product={product}
+                                                addProductToBasket={addProductToBasket}
+                                                removeProductFromBasket={removeProductFromBasket}
+                                            />
+                                        </ListItem>
+                                    )
+                                }
+                            </List>
+                        </div> :
+                            <Navigate to="/login" replace/>
+                        }>
+                    </Route>
+                    <Route path='/login'/>
+                    <Route path='/register'/>
+                </Routes>
+            </BrowserRouter>
+        </>
     )
 }
 
